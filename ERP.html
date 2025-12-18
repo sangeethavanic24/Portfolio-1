@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College ERP - Admin Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>College ERP</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item active" data-page="dashboard">
+                    <a href="#dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-page="admission">
+                    <a href="#admission">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Admission</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-page="attendance">
+                    <a href="#attendance">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Attendance</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-page="exams">
+                    <a href="#exams">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Exams</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-page="finance">
+                    <a href="#finance">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span>Finance</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-page="communication">
+                    <a href="#communication">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>Communication</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-page="library">
+                    <a href="#library">
+                        <i class="fas fa-book"></i>
+                        <span>Library</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-page="hostel">
+                    <a href="#hostel">
+                        <i class="fas fa-building"></i>
+                        <span>Hostel</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-page="analytics">
+                    <a href="#analytics">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="admin-info">
+                <div class="admin-avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="admin-details">
+                    <span class="admin-name">Admin User</span>
+                    <span class="admin-role">Administrator</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title" id="pageTitle">Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search..." id="globalSearch">
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge" id="notificationBadge">3</span>
+                    </button>
+                    <div class="current-date">
+                        <i class="fas fa-calendar"></i>
+                        <span id="currentDate"></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content Container -->
+        <div class="page-content" id="pageContent">
+            <!-- Dashboard Page -->
+            <section class="page active" id="dashboardPage">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card students">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalStudents">0</h3>
+                            <p>Total Students</p>
+                        </div>
+                    </div>
+                    <div class="stat-card fees">
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="pendingFees">$0</h3>
+                            <p>Pending Fees</p>
+                        </div>
+                    </div>
+                    <div class="stat-card attendance">
+                        <div class="stat-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="todayAttendance">0%</h3>
+                            <p>Today's Attendance</p>
+                        </div>
+                    </div>
+                    <div class="stat-card exams">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="upcomingExams">0</h3>
+                            <p>Upcoming Exams</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="dashboard-section">
+                    <h2 class="section-title">Quick Actions</h2>
+                    <div class="quick-actions">
+                        <button class="action-btn" onclick="navigateTo('admission')">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Add Student</span>
+                        </button>
+                        <button class="action-btn" onclick="navigateTo('attendance')">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Mark Attendance</span>
+                        </button>
+                        <button class="action-btn" onclick="navigateTo('finance')">
+                            <i class="fas fa-receipt"></i>
+                            <span>Record Payment</span>
+                        </button>
+                        <button class="action-btn" onclick="navigateTo('communication')">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Notice</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dashboard Charts & Recent Activity -->
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3 class="card-title">Student Enrollment Trend</h3>
+                        <canvas id="enrollmentChart"></canvas>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 class="card-title">Recent Activities</h3>
+                        <div class="activity-list" id="recentActivities">
+                            <!-- Activities will be populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admission Page -->
+            <section class="page" id="admissionPage">
+                <div class="page-header">
+                    <h2>Student Admission</h2>
+                    <button class="btn btn-primary" onclick="openModal('studentModal')">
+                        <i class="fas fa-plus"></i> Add Student
+                    </button>
+                </div>
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <input type="text" id="studentSearch" placeholder="Search students..." class="filter-input">
+                    </div>
+                    <div class="filter-group">
+                        <select id="courseFilter" class="filter-select">
+                            <option value="">All Courses</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="Civil">Civil</option>
+                            <option value="Business">Business</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="yearFilter" class="filter-select">
+                            <option value="">All Years</option>
+                            <option value="1">1st Year</option>
+                            <option value="2">2nd Year</option>
+                            <option value="3">3rd Year</option>
+                            <option value="4">4th Year</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="studentsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Course</th>
+                                <th>Year</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <!-- Students will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="studentsPagination"></div>
+            </section>
+
+            <!-- Attendance Page -->
+            <section class="page" id="attendancePage">
+                <div class="page-header">
+                    <h2>Attendance Management</h2>
+                    <button class="btn btn-primary" onclick="openAttendanceMarking()">
+                        <i class="fas fa-calendar-check"></i> Mark Attendance
+                    </button>
+                </div>
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <label>Date:</label>
+                        <input type="date" id="attendanceDate" class="filter-input">
+                    </div>
+                    <div class="filter-group">
+                        <label>Course:</label>
+                        <select id="attendanceCourseFilter" class="filter-select">
+                            <option value="">All Courses</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="Civil">Civil</option>
+                            <option value="Business">Business</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary" onclick="loadAttendanceRecords()">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                </div>
+                <div class="attendance-stats">
+                    <div class="attendance-stat-card present">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="presentCount">0</span>
+                        <p>Present</p>
+                    </div>
+                    <div class="attendance-stat-card absent">
+                        <i class="fas fa-times-circle"></i>
+                        <span id="absentCount">0</span>
+                        <p>Absent</p>
+                    </div>
+                    <div class="attendance-stat-card percentage">
+                        <i class="fas fa-percentage"></i>
+                        <span id="attendancePercentage">0%</span>
+                        <p>Attendance Rate</p>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="attendanceTable">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Course</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTableBody">
+                            <!-- Attendance records will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Exams Page -->
+            <section class="page" id="examsPage">
+                <div class="page-header">
+                    <h2>Exam Management</h2>
+                    <div class="header-buttons">
+                        <button class="btn btn-primary" onclick="openModal('examModal')">
+                            <i class="fas fa-plus"></i> Schedule Exam
+                        </button>
+                        <button class="btn btn-secondary" onclick="openModal('marksModal')">
+                            <i class="fas fa-edit"></i> Enter Marks
+                        </button>
+                    </div>
+                </div>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="examSchedule">Exam Schedule</button>
+                    <button class="tab-btn" data-tab="examResults">Results</button>
+                </div>
+                <div class="tab-content active" id="examSchedule">
+                    <div class="table-container">
+                        <table class="data-table" id="examsTable">
+                            <thead>
+                                <tr>
+                                    <th>Exam Name</th>
+                                    <th>Subject</th>
+                                    <th>Course</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Room</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="examsTableBody">
+                                <!-- Exams will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-content" id="examResults">
+                    <div class="filters-bar">
+                        <div class="filter-group">
+                            <select id="resultExamFilter" class="filter-select">
+                                <option value="">Select Exam</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-secondary" onclick="loadExamResults()">
+                            <i class="fas fa-search"></i> View Results
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="resultsTable">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Student Name</th>
+                                    <th>Marks Obtained</th>
+                                    <th>Total Marks</th>
+                                    <th>Percentage</th>
+                                    <th>Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsTableBody">
+                                <!-- Results will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Finance Page -->
+            <section class="page" id="financePage">
+                <div class="page-header">
+                    <h2>Finance & Fee Management</h2>
+                    <div class="header-buttons">
+                        <button class="btn btn-primary" onclick="openModal('feeModal')">
+                            <i class="fas fa-plus"></i> Record Payment
+                        </button>
+                        <button class="btn btn-secondary" onclick="openModal('feeStructureModal')">
+                            <i class="fas fa-cog"></i> Fee Structure
+                        </button>
+                    </div>
+                </div>
+                <div class="finance-stats">
+                    <div class="finance-stat-card collected">
+                        <i class="fas fa-check-circle"></i>
+                        <h3 id="totalCollected">$0</h3>
+                        <p>Total Collected</p>
+                    </div>
+                    <div class="finance-stat-card pending">
+                        <i class="fas fa-clock"></i>
+                        <h3 id="totalPending">$0</h3>
+                        <p>Total Pending</p>
+                    </div>
+                    <div class="finance-stat-card thisMonth">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3 id="thisMonthCollection">$0</h3>
+                        <p>This Month</p>
+                    </div>
+                </div>
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <input type="text" id="feeSearch" placeholder="Search by student..." class="filter-input">
+                    </div>
+                    <div class="filter-group">
+                        <select id="feeStatusFilter" class="filter-select">
+                            <option value="">All Status</option>
+                            <option value="paid">Paid</option>
+                            <option value="pending">Pending</option>
+                            <option value="overdue">Overdue</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="feesTable">
+                        <thead>
+                            <tr>
+                                <th>Receipt No</th>
+                                <th>Student</th>
+                                <th>Fee Type</th>
+                                <th>Amount</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feesTableBody">
+                            <!-- Fees will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Communication Page -->
+            <section class="page" id="communicationPage">
+                <div class="page-header">
+                    <h2>Communication & Notices</h2>
+                    <button class="btn btn-primary" onclick="openModal('noticeModal')">
+                        <i class="fas fa-plus"></i> Create Notice
+                    </button>
+                </div>
+                <div class="communication-grid">
+                    <div class="notices-section">
+                        <h3>Notice Board</h3>
+                        <div class="notices-list" id="noticesList">
+                            <!-- Notices will be populated dynamically -->
+                        </div>
+                    </div>
+                    <div class="events-section">
+                        <h3>Upcoming Events</h3>
+                        <div class="events-calendar" id="eventsCalendar">
+                            <div class="calendar-header">
+                                <button onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                                <span id="calendarMonth"></span>
+                                <button onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="calendar-grid" id="calendarGrid">
+                                <!-- Calendar will be populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Library Page -->
+            <section class="page" id="libraryPage">
+                <div class="page-header">
+                    <h2>Library Management</h2>
+                    <div class="header-buttons">
+                        <button class="btn btn-primary" onclick="openModal('bookModal')">
+                            <i class="fas fa-plus"></i> Add Book
+                        </button>
+                        <button class="btn btn-secondary" onclick="openModal('issueBookModal')">
+                            <i class="fas fa-hand-holding"></i> Issue Book
+                        </button>
+                    </div>
+                </div>
+                <div class="library-stats">
+                    <div class="library-stat-card total">
+                        <i class="fas fa-books"></i>
+                        <span id="totalBooks">0</span>
+                        <p>Total Books</p>
+                    </div>
+                    <div class="library-stat-card available">
+                        <i class="fas fa-book-open"></i>
+                        <span id="availableBooks">0</span>
+                        <p>Available</p>
+                    </div>
+                    <div class="library-stat-card issued">
+                        <i class="fas fa-book-reader"></i>
+                        <span id="issuedBooks">0</span>
+                        <p>Issued</p>
+                    </div>
+                </div>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="booksInventory">Books Inventory</button>
+                    <button class="tab-btn" data-tab="issuedBooksList">Issued Books</button>
+                </div>
+                <div class="tab-content active" id="booksInventory">
+                    <div class="filters-bar">
+                        <div class="filter-group">
+                            <input type="text" id="bookSearch" placeholder="Search books..." class="filter-input">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="booksTable">
+                            <thead>
+                                <tr>
+                                    <th>Book ID</th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>ISBN</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="booksTableBody">
+                                <!-- Books will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-content" id="issuedBooksList">
+                    <div class="table-container">
+                        <table class="data-table" id="issuedBooksTable">
+                            <thead>
+                                <tr>
+                                    <th>Book Title</th>
+                                    <th>Student Name</th>
+                                    <th>Issue Date</th>
+                                    <th>Due Date</th>
+                                    <th>Fine</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="issuedBooksTableBody">
+                                <!-- Issued books will be populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hostel Page -->
+            <section class="page" id="hostelPage">
+                <div class="page-header">
+                    <h2>Hostel Management</h2>
+                    <div class="header-buttons">
+                        <button class="btn btn-primary" onclick="openModal('roomModal')">
+                            <i class="fas fa-plus"></i> Add Room
+                        </button>
+                        <button class="btn btn-secondary" onclick="openModal('allocateRoomModal')">
+                            <i class="fas fa-user-plus"></i> Allocate Student
+                        </button>
+                    </div>
+                </div>
+                <div class="hostel-stats">
+                    <div class="hostel-stat-card total">
+                        <i class="fas fa-door-open"></i>
+                        <span id="totalRooms">0</span>
+                        <p>Total Rooms</p>
+                    </div>
+                    <div class="hostel-stat-card occupied">
+                        <i class="fas fa-bed"></i>
+                        <span id="occupiedRooms">0</span>
+                        <p>Occupied</p>
+                    </div>
+                    <div class="hostel-stat-card vacant">
+                        <i class="fas fa-door-closed"></i>
+                        <span id="vacantRooms">0</span>
+                        <p>Vacant</p>
+                    </div>
+                </div>
+                <div class="hostel-blocks">
+                    <h3>Room Overview</h3>
+                    <div class="block-filter">
+                        <select id="blockFilter" class="filter-select">
+                            <option value="">All Blocks</option>
+                            <option value="A">Block A</option>
+                            <option value="B">Block B</option>
+                            <option value="C">Block C</option>
+                        </select>
+                    </div>
+                    <div class="rooms-grid" id="roomsGrid">
+                        <!-- Rooms will be populated dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Page -->
+            <section class="page" id="analyticsPage">
+                <div class="page-header">
+                    <h2>Reports & Analytics</h2>
+                    <button class="btn btn-secondary" onclick="exportAnalytics()">
+                        <i class="fas fa-download"></i> Export Report
+                    </button>
+                </div>
+                <div class="analytics-grid">
+                    <div class="analytics-card full-width">
+                        <h3>Student Enrollment by Course</h3>
+                        <canvas id="enrollmentByCourse"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Fee Collection Summary</h3>
+                        <canvas id="feeCollectionChart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Attendance Overview</h3>
+                        <canvas id="attendanceChart"></canvas>
+                    </div>
+                    <div class="analytics-card full-width">
+                        <h3>Monthly Performance</h3>
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal Container -->
+    <div class="modal-overlay" id="modalOverlay">
+        <!-- Student Modal -->
+        <div class="modal" id="studentModal">
+            <div class="modal-header">
+                <h3 id="studentModalTitle">Add New Student</h3>
+                <button class="modal-close" onclick="closeModal('studentModal')">&times;</button>
+            </div>
+            <form id="studentForm" onsubmit="saveStudent(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="studentId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentName">Full Name *</label>
+                            <input type="text" id="studentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentEmail">Email *</label>
+                            <input type="email" id="studentEmail" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentPhone">Phone *</label>
+                            <input type="tel" id="studentPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentDob">Date of Birth *</label>
+                            <input type="date" id="studentDob" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentCourse">Course *</label>
+                            <select id="studentCourse" required>
+                                <option value="">Select Course</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Mechanical">Mechanical</option>
+                                <option value="Civil">Civil</option>
+                                <option value="Business">Business</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentYear">Year *</label>
+                            <select id="studentYear" required>
+                                <option value="">Select Year</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentAddress">Address</label>
+                        <textarea id="studentAddress" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('studentModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Student</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Exam Modal -->
+        <div class="modal" id="examModal">
+            <div class="modal-header">
+                <h3 id="examModalTitle">Schedule Exam</h3>
+                <button class="modal-close" onclick="closeModal('examModal')">&times;</button>
+            </div>
+            <form id="examForm" onsubmit="saveExam(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="examId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="examName">Exam Name *</label>
+                            <input type="text" id="examName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="examSubject">Subject *</label>
+                            <input type="text" id="examSubject" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="examCourse">Course *</label>
+                            <select id="examCourse" required>
+                                <option value="">Select Course</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Mechanical">Mechanical</option>
+                                <option value="Civil">Civil</option>
+                                <option value="Business">Business</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="examRoom">Room *</label>
+                            <input type="text" id="examRoom" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="examDate">Date *</label>
+                            <input type="date" id="examDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="examTime">Time *</label>
+                            <input type="time" id="examTime" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="examTotalMarks">Total Marks *</label>
+                            <input type="number" id="examTotalMarks" required min="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('examModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Exam</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Marks Modal -->
+        <div class="modal" id="marksModal">
+            <div class="modal-header">
+                <h3>Enter Marks</h3>
+                <button class="modal-close" onclick="closeModal('marksModal')">&times;</button>
+            </div>
+            <form id="marksForm" onsubmit="saveMarks(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="marksExamSelect">Select Exam *</label>
+                        <select id="marksExamSelect" required onchange="loadStudentsForMarks()">
+                            <option value="">Select Exam</option>
+                        </select>
+                    </div>
+                    <div class="marks-entry" id="marksEntry">
+                        <!-- Student marks entries will be populated dynamically -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('marksModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Marks</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Fee Modal -->
+        <div class="modal" id="feeModal">
+            <div class="modal-header">
+                <h3 id="feeModalTitle">Record Payment</h3>
+                <button class="modal-close" onclick="closeModal('feeModal')">&times;</button>
+            </div>
+            <form id="feeForm" onsubmit="saveFee(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="feeId">
+                    <div class="form-group">
+                        <label for="feeStudentSelect">Select Student *</label>
+                        <select id="feeStudentSelect" required>
+                            <option value="">Select Student</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="feeType">Fee Type *</label>
+                            <select id="feeType" required>
+                                <option value="">Select Type</option>
+                                <option value="Tuition Fee">Tuition Fee</option>
+                                <option value="Exam Fee">Exam Fee</option>
+                                <option value="Library Fee">Library Fee</option>
+                                <option value="Hostel Fee">Hostel Fee</option>
+                                <option value="Lab Fee">Lab Fee</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="feeAmount">Amount *</label>
+                            <input type="number" id="feeAmount" required min="0" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="feeDueDate">Due Date *</label>
+                            <input type="date" id="feeDueDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="feeStatus">Status *</label>
+                            <select id="feeStatus" required>
+                                <option value="pending">Pending</option>
+                                <option value="paid">Paid</option>
+                                <option value="overdue">Overdue</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="paidDateGroup" style="display:none;">
+                        <label for="feePaidDate">Paid Date</label>
+                        <input type="date" id="feePaidDate">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('feeModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Payment</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Notice Modal -->
+        <div class="modal" id="noticeModal">
+            <div class="modal-header">
+                <h3 id="noticeModalTitle">Create Notice</h3>
+                <button class="modal-close" onclick="closeModal('noticeModal')">&times;</button>
+            </div>
+            <form id="noticeForm" onsubmit="saveNotice(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="noticeId">
+                    <div class="form-group">
+                        <label for="noticeTitle">Title *</label>
+                        <input type="text" id="noticeTitle" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="noticePriority">Priority *</label>
+                            <select id="noticePriority" required>
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="noticeDate">Date *</label>
+                            <input type="date" id="noticeDate" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="noticeContent">Content *</label>
+                        <textarea id="noticeContent" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('noticeModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Publish Notice</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Book Modal -->
+        <div class="modal" id="bookModal">
+            <div class="modal-header">
+                <h3 id="bookModalTitle">Add Book</h3>
+                <button class="modal-close" onclick="closeModal('bookModal')">&times;</button>
+            </div>
+            <form id="bookForm" onsubmit="saveBook(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="bookId">
+                    <div class="form-group">
+                        <label for="bookTitle">Title *</label>
+                        <input type="text" id="bookTitle" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bookAuthor">Author *</label>
+                            <input type="text" id="bookAuthor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookIsbn">ISBN *</label>
+                            <input type="text" id="bookIsbn" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookCategory">Category</label>
+                        <select id="bookCategory">
+                            <option value="General">General</option>
+                            <option value="Science">Science</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Literature">Literature</option>
+                            <option value="History">History</option>
+                            <option value="Reference">Reference</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('bookModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Book</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Issue Book Modal -->
+        <div class="modal" id="issueBookModal">
+            <div class="modal-header">
+                <h3>Issue Book</h3>
+                <button class="modal-close" onclick="closeModal('issueBookModal')">&times;</button>
+            </div>
+            <form id="issueBookForm" onsubmit="issueBook(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="issueBookSelect">Select Book *</label>
+                        <select id="issueBookSelect" required>
+                            <option value="">Select Book</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="issueStudentSelect">Select Student *</label>
+                        <select id="issueStudentSelect" required>
+                            <option value="">Select Student</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="issueDate">Issue Date *</label>
+                            <input type="date" id="issueDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dueDate">Due Date *</label>
+                            <input type="date" id="dueDate" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('issueBookModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Issue Book</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Room Modal -->
+        <div class="modal" id="roomModal">
+            <div class="modal-header">
+                <h3 id="roomModalTitle">Add Room</h3>
+                <button class="modal-close" onclick="closeModal('roomModal')">&times;</button>
+            </div>
+            <form id="roomForm" onsubmit="saveRoom(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="roomId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="roomNumber">Room Number *</label>
+                            <input type="text" id="roomNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="roomBlock">Block *</label>
+                            <select id="roomBlock" required>
+                                <option value="">Select Block</option>
+                                <option value="A">Block A</option>
+                                <option value="B">Block B</option>
+                                <option value="C">Block C</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="roomCapacity">Capacity *</label>
+                        <input type="number" id="roomCapacity" required min="1" max="10">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('roomModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Room</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Allocate Room Modal -->
+        <div class="modal" id="allocateRoomModal">
+            <div class="modal-header">
+                <h3>Allocate Student to Room</h3>
+                <button class="modal-close" onclick="closeModal('allocateRoomModal')">&times;</button>
+            </div>
+            <form id="allocateRoomForm" onsubmit="allocateRoom(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="allocateRoomSelect">Select Room *</label>
+                        <select id="allocateRoomSelect" required>
+                            <option value="">Select Room</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="allocateStudentSelect">Select Student *</label>
+                        <select id="allocateStudentSelect" required>
+                            <option value="">Select Student</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('allocateRoomModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Allocate</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Attendance Modal -->
+        <div class="modal modal-lg" id="attendanceModal">
+            <div class="modal-header">
+                <h3>Mark Attendance</h3>
+                <button class="modal-close" onclick="closeModal('attendanceModal')">&times;</button>
+            </div>
+            <form id="attendanceForm" onsubmit="saveAttendance(event)">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="markAttendanceDate">Date *</label>
+                            <input type="date" id="markAttendanceDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="markAttendanceCourse">Course *</label>
+                            <select id="markAttendanceCourse" required onchange="loadStudentsForAttendance()">
+                                <option value="">Select Course</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Mechanical">Mechanical</option>
+                                <option value="Civil">Civil</option>
+                                <option value="Business">Business</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="attendance-marking" id="attendanceMarking">
+                        <p class="text-muted">Select a course to load students</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('attendanceModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Attendance</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div class="modal modal-sm" id="confirmModal">
+            <div class="modal-header">
+                <h3>Confirm Action</h3>
+                <button class="modal-close" onclick="closeModal('confirmModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Are you sure you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('confirmModal')">Cancel</button>
+                <button class="btn btn-danger" id="confirmBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/modules/admission.js"></script>
+    <script src="js/modules/attendance.js"></script>
+    <script src="js/modules/exams.js"></script>
+    <script src="js/modules/finance.js"></script>
+    <script src="js/modules/communication.js"></script>
+    <script src="js/modules/library.js"></script>
+    <script src="js/modules/hostel.js"></script>
+    <script src="js/modules/analytics.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
